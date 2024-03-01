@@ -1,0 +1,78 @@
+﻿<Window x:Class="Unidad1TopicosTarea.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Unidad1TopicosTarea"
+        mc:Ignorable="d"
+        Title="Punto de venta" Height="450" Width="800" Background="#F9F7DC">
+    <Window.DataContext>
+        <local:Venta x:Name="venta1"></local:Venta>
+    </Window.DataContext>
+
+    <DockPanel>
+        <TextBlock Style="{StaticResource header}" DockPanel.Dock="Top" Text="♦  Panadería Don Juan  ♦" />
+
+        <DockPanel Margin="0,20,40,20" Width="250" DockPanel.Dock="Right">
+
+            <UniformGrid Columns="2" DockPanel.Dock="Bottom">
+                <Button Style="{StaticResource botondeshabilitado}" FontFamily="Goudy Old Style" FontSize="35" FontWeight="Bold" Background="LimeGreen"
+                       Command="{Binding ReiniciarCommand}">✓
+
+                </Button>
+
+                <Button Style="{StaticResource botondeshabilitado}" FontSize="35" FontFamily="Goudy Old Style" FontWeight="Bold" Background="Red"
+                       Command="{Binding ReiniciarCommand}">✕</Button>
+            </UniformGrid>
+
+            <TextBlock FontSize="20" DockPanel.Dock="Bottom" Background="WhiteSmoke" FontFamily="Dubai Medium">
+               <Run>Total:</Run>
+               <Run Foreground="LimeGreen" Text="{Binding Path=TotalPagar, Mode=OneWay, StringFormat={}{0:$0.00}}"></Run>
+
+            </TextBlock>
+
+            <DataGrid FontSize="14" FontFamily="Dubai Medium" x:Name="datagrid1" ItemsSource="{Binding ListaVenta}"  AutoGenerateColumns="False" CanUserAddRows="False" 
+                     CanUserDeleteRows="False" CanUserReorderColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Pan" Width=".5*" Binding="{Binding Nombre}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Cantidad" Width=".3*" Binding="{Binding CantidadVenta}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Precio" Width=".2*" Foreground="LimeGreen" Binding="{Binding Precio, StringFormat={}{0:$0.00}}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </DockPanel>
+
+        <DockPanel Margin="20">
+
+            <DockPanel Height="40" DockPanel.Dock="Top" Width="auto">
+
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Width="auto">
+
+                    <ComboBox FontFamily="Dubai Medium" x:Name="cmbPanes" Width="230" FontSize="20" SelectedIndex="1"
+                             ItemsSource="{Binding ListaPanes}" DisplayMemberPath="Nombre"></ComboBox>
+                    <TextBox  Text="{Binding Path=CantidadAgregar}" FontFamily="Dubai Medium" FontSize="25" Width="80" TextAlignment="Center" ></TextBox>
+                    <Button Background="LimeGreen" FontSize="30" HorizontalAlignment="Center" Content="+" Width="78" 
+                       Command="{Binding AgregarCommand}"  CommandParameter="{Binding ElementName=cmbPanes, Path=SelectedItem}"></Button>
+                    <Button Background="Red" FontSize="30" Content="-" FontWeight="Bold" Width="78" 
+                            Command="{Binding EliminarCommand}" CommandParameter="{Binding ElementName=datagrid1, Path=SelectedItem}">
+                        <Button.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=datagrid1, Path=SelectedItem}" Value="{x:Null}">
+                                        <Setter Property="Button.IsEnabled" Value="False"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                </StackPanel>
+
+            </DockPanel>
+            <Image Source="{Binding ElementName=cmbPanes, Path=SelectedItem.UrlImagen}" Margin="20"></Image>
+
+
+        </DockPanel>
+    </DockPanel>
+    
+</Window>

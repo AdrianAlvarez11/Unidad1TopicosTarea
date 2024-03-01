@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "QHqxRDF7KNaGNMKxT92AhYVVb4kNHwzgJZCoYpOExJeG38SzYap4cRJE/Swc/LzvVFhToe6R4qO25EtQSnc2vg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\bl\\development\\Unidad1TopicosTarea\\Unidad1TopicosTarea\\Unidad1TopicosTarea.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\bl\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.2\\communitytoolkit.mvvm.8.2.2.nupkg.sha512"
+  ],
+  "logs": []
+}
